@@ -1,4 +1,5 @@
 import ContentDemo from "./components/ContentDemo"
+import DemoEvent from "./components/DemoEvent"
 import HeaderDemo from "./components/HeaderDemo"
 import HomeDemo from "./components/HomeDemo"
 import NavigationDemo from "./components/NavigationDemo"
@@ -14,7 +15,8 @@ function App() {
         <ContentDemo />
       </div>
       <RenderShoes />
-      <h1 className="text-red-500">Tôi là Mei</h1>
+      <DemoEvent />
+      {/* <h1 className="text-red-500">Tôi là Mei</h1> */}
     </>
   )
 }
