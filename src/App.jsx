@@ -2,6 +2,7 @@ import ContentDemo from "./components/ContentDemo"
 import HeaderDemo from "./components/HeaderDemo"
 import HomeDemo from "./components/HomeDemo"
 import NavigationDemo from "./components/NavigationDemo"
+import RenderShoes from "./components/RenderShoes"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <NavigationDemo />
         <ContentDemo />
       </div>
+      <RenderShoes />
       <h1 className="text-red-500">Tôi là Mei</h1>
     </>
   )
