@@ -1,10 +1,9 @@
-// import React from "react"
-
 import { useState } from "react"
 
-const BaiTap1State = () => {
+const BaiTap1State = (props) => {
+  // dữ liệu props là dữ liệu chỉ đọc (readonly)
   const [selectCar, setSelectCar] = useState("black-car.jpg")
-
+  console.log(props)
   const arrButton = [
     {
       icon: "./public/CarBasic/icons/icon-black.jpg",
@@ -15,26 +14,33 @@ const BaiTap1State = () => {
     {
       icon: "./public/CarBasic/icons/icon-steel.jpg",
       title: "Modern Steel",
-      subTitle: "Metallic",
+      subTitle: "Pearl",
       selectCar: "steel-car.jpg",
     },
     {
       icon: "./public/CarBasic/icons/icon-silver.jpg",
       title: "Lunar Silver",
-      subTitle: "Metallic",
+      subTitle: "Pearl",
       selectCar: "silver-car.jpg",
     },
     {
       icon: "./public/CarBasic/icons/icon-red.jpg",
       title: "Rallye Red",
-      subTitle: "Metallic",
+      subTitle: "Pearl",
       selectCar: "red-car.jpg",
     },
   ]
+  // props.abc = "huhu";
 
   return (
     <div>
-      <h2>Bài tập hiển thị loại xe tương ứng bằng State</h2>
+      <h2>Bài tập hiển thị loại xe tương ứng bằng State {props.abc}</h2>
+      <button
+        onClick={props.updateStateCount}
+        className="py-2 px-5 bg-red-500 text-white rounded-lg"
+      >
+        Tăng count
+      </button>
       <div className="flex">
         <div className="w-2/3">
           <img src={`./public/CarBasic/products/${selectCar}`} alt="" />
@@ -43,11 +49,11 @@ const BaiTap1State = () => {
           {arrButton.map((item, index) => {
             return (
               <button
+                key={index}
                 onClick={() => {
                   setSelectCar(item.selectCar)
                 }}
-                key={index}
-                className="flex items-center py-2 px-5 rounded-lg border border-black w-full space-x-3"
+                className="flex items-center py-2 px-5 rounded-lg border space-x-3 border-black w-full"
               >
                 <img width={40} src={item.icon} alt="" />
                 <div className="text-left">
