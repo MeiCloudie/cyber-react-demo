@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { getRandomNumber } from "../../utils/utils"
 
 const initialState = {
   xiNgau: {
@@ -20,6 +21,16 @@ const xiNgauSlice = createSlice({
       console.log(action)
       state.banChon = action.payload
     },
+    nguoiDungBam: (state) => {
+      let xiNgau1 = getRandomNumber()
+      let xiNgau2 = getRandomNumber()
+      let xiNgau3 = getRandomNumber()
+      // state.xiNgau.xiNgau1 =xiNgau1
+      state.xiNgau = { xiNgau1, xiNgau2, xiNgau3 }
+      state.tongSoBanChoi++
+      let checker = xiNgau1 + xiNgau2 + xiNgau3 > 11 ? true : false
+      checker == state.banChon && state.tongSoBanThang++
+    },
     // NV1: Thực hiện tạo một action dùng để xử lí chức năng khi ng dùng bấm play game, các công việc cần làm
     // B1: Thực hiện tạo ngẫu nhiên 3 con xí ngầu mới
     // B2: Thực hiện tăng tổng số bàn chơi thêm 1 giá trị
@@ -27,6 +38,6 @@ const xiNgauSlice = createSlice({
   },
 })
 
-export const { luaChonNguoiDung } = xiNgauSlice.actions
+export const { luaChonNguoiDung, nguoiDungBam } = xiNgauSlice.actions
 
 export default xiNgauSlice.reducer
