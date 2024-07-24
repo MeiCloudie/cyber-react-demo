@@ -29,6 +29,10 @@ const HomeTemplate = () => {
       to: path.baiTapLacXiNgau,
       content: "Bài tập lắc xí ngầu",
     },
+    {
+      to: "/demo-useEffect",
+      content: "Demo useEffect",
+    },
   ]
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -86,7 +90,7 @@ const HomeTemplate = () => {
           textAlign: "center",
         }}
       >
-        Repo của Mei
+        Repo của Quách Khải
       </Footer>
     </Layout>
   )
