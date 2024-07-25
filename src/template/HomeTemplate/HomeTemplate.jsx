@@ -90,7 +90,7 @@ const HomeTemplate = () => {
           textAlign: "center",
         }}
       >
-        Repo của Quách Khải
+        Repo của Mei
       </Footer>
     </Layout>
   )
