@@ -4,9 +4,13 @@
 // import HomeTemplate from "./template/HomeTemplate/HomeTemplate"
 // import PageNotFound from "./components/PageNotFound/PageNotFound"
 // import ShoeDetail from "./components/ShoeDetail"
+import React from "react"
 import useRouteCustom from "./routes/useRouteCustom"
+import { message } from "antd"
 
+export const NotificationContext = React.createContext()
 function App() {
+  const [messageApi, contextHolder] = message.useMessage()
   {
     // path (tuyến đường): endpoint /home
   }
@@ -18,8 +22,29 @@ function App() {
   // Custom xây dựng cơ chế routing theo hook useRoutes từ react router dom
 
   const routes = useRouteCustom()
-  return routes
 
+  const handleNotification = (status, content) => {
+    messageApi.open({
+      type: status,
+      content,
+    })
+  }
+  // handleNotification("error", "Hello")
+  return (
+    <>
+      <NotificationContext.Provider
+        value={{ abc: "Linh da", handleNotification }}
+      >
+        {contextHolder}
+        {routes}
+      </NotificationContext.Provider>
+      {/* <NotificationContext.Provider value={{ abc: "Mei" }}>
+        <Headers />
+      </NotificationContext.Provider>
+      <Body />
+      <Footer /> */}
+    </>
+  )
   // return (
   //   <>
   //     <Routes>
