@@ -1,16 +1,15 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { Link, useParams, useSearchParams } from "react-router-dom"
 
 const DemoUseEffectDetail = () => {
   const [shoe, setShoe] = useState({})
-
   // thực hiện gọi tới hook useSearchParams để lấy dữ liệu trên url
   const [searchParam, setSearchParam] = useSearchParams()
   const dataGiaTien = searchParam.get("giatien")
   const dataHang = searchParam.get("hang")
   console.log(dataHang)
-  console.log(dataGiaTien)
+
   // let abc = {
   //   id: 2,
   // };
@@ -19,6 +18,10 @@ const DemoUseEffectDetail = () => {
   // };
   // shoe.tuoi ==> undifined
   const { id } = useParams()
+  let random = id + Math.floor(Math.random() * 6)
+  const randomMemo = useMemo(() => {
+    return random
+  }, [id])
   // tham số thứ 2 của useEffect là một mảng có tên dependecy giúp thực hiện cho phép người dùng lựa chọn chạy lại useEffect khi một hoặc nhiều giá trị thay đổi
   useEffect(() => {
     axios({
@@ -41,9 +44,39 @@ const DemoUseEffectDetail = () => {
   }, [])
 
   console.log(shoe)
-
+  console.log(random)
+  const refCustom = useRef(null)
+  const refInput = useRef(null)
   return (
     <>
+      {/* http://localhost:5173/demo-use-effect-detail/32 .split("/") */}
+      {/* ["http:", "","localhost:5173","demo-use-effect-detail","32"] */}
+      <input
+        type="text"
+        placeholder="Nhập năm sinh"
+        ref={refInput}
+        onChange={(event) => {
+          console.log(event.target.value)
+          console.log(refInput.current.value)
+        }}
+      />
+      <p>{refInput?.current?.value}</p>
+      <button
+        onClick={() => {
+          // scrollIntroView giúp scroll tới một phần tử được chỉ định
+          console.log(
+            refCustom.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            })
+          )
+        }}
+        className="py-2 px-5 bg-black text-white rounded-md"
+      >
+        Bấm vào để xem sản phẩm liên quan
+      </button>
+      {randomMemo}
+      {/* {random} */}
       <input
         type="text"
         className="p-2 border border-black rounded-md"
@@ -51,10 +84,7 @@ const DemoUseEffectDetail = () => {
         onChange={(event) => {
           const dataQuery = Object.fromEntries(searchParam)
           console.log(dataQuery)
-          setSearchParam({
-            ...dataQuery,
-            hang: event.target.value,
-          })
+          setSearchParam({ ...dataQuery, hang: event.target.value })
         }}
       />
       <div>
@@ -74,7 +104,37 @@ const DemoUseEffectDetail = () => {
         </div>
       </div>
       {/* sản phẩm liên quan  */}
-      <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div ref={refCustom}>
         <h3>Các sản phẩm liên quan</h3>
         {shoe.relatedProducts?.map((item, index) => {
           return (
