@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useFormik } from "formik"
 import InputCustom from "./InputCustom"
 import { DatePicker } from "antd"
 import ButtonCustom from "./ButtonCustom"
 import TableNhanVien from "./TableNhanVien"
 import * as yup from "yup"
+import { NotificationContext } from "../../App"
 
 const DemoFormReact = () => {
   // const [value, setValue] = useState({
@@ -28,6 +29,8 @@ const DemoFormReact = () => {
     errors,
     handleBlur,
     touched,
+    resetForm,
+    setValues,
   } = useFormik({
     // initialValues là dữ liệu mặc định của formik được cung cấp từ người dùng
     initialValues: {
@@ -40,12 +43,13 @@ const DemoFormReact = () => {
       ngaySinh: "",
     },
     // onSubmit được thực thi khi form bắt đầu chạy sự kiện submit, tham số values đại diện cho dữ liệu của tất cả field trong form
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       console.log(values)
       // const newArrNhanVien = [...arrNhanVien];
       // newArrNhanVien.push(values);
       // setArrNhanVien(newArrNhanVien);
       setArrNhanVien([...arrNhanVien, values])
+      resetForm()
     },
     // ở phương thức yup.object sẽ nhận một object chứa thông tin các validation dành cho các field ở initialValues
     validationSchema: yup.object({
@@ -81,8 +85,34 @@ const DemoFormReact = () => {
     }),
   })
 
-  console.log(errors)
-  console.log(touched)
+  // console.log(errors)
+  // console.log(touched)
+
+  const valueContext = useContext(NotificationContext)
+  const deleteNhanVien = (msnv) => {
+    const newArrNhanVien = [...arrNhanVien]
+    const index = newArrNhanVien.findIndex((item, index) => item.msnv == msnv)
+    if (index != -1) {
+      newArrNhanVien.splice(index, 1)
+      setArrNhanVien(newArrNhanVien)
+    } else {
+      valueContext.handleNotification(
+        "error",
+        "Có lỗi xảy ra người dùng không có trong hệ thống"
+      )
+    }
+  }
+
+  const getInforNhanVien = (record) => {
+    // sử dụng phương thức setValues để lấy record và cập nhật lên form
+  }
+
+  const updateNhanVien = () => {
+    // sử dụng isValid từ formik để kiểm tra, nếu không còn lỗi thì sẽ cập nhật dữ liệu
+  }
+
+  // Tìm kiếm nhân viên (lọc theo tên)
+  const searchNhanVien = () => {}
 
   return (
     <div>
@@ -192,7 +222,13 @@ const DemoFormReact = () => {
           />
           <div className="space-x-5">
             <ButtonCustom content={"Thêm nhân viên"} type="submit" />
-            <ButtonCustom content={"Reset Form"} bgColor="bg-black" />
+            <ButtonCustom
+              onClick={() => {
+                resetForm()
+              }}
+              content={"Reset Form"}
+              bgColor="bg-black"
+            />
             <ButtonCustom
               content={"Cập nhật nhân viên"}
               bgColor="bg-yellow-500"
@@ -208,7 +244,7 @@ const DemoFormReact = () => {
           id={"hoTen"}
         /> */}
       </form>
-      <TableNhanVien data={arrNhanVien} />
+      <TableNhanVien data={arrNhanVien} handleDeleteNhanVien={deleteNhanVien} />
     </div>
   )
 }
