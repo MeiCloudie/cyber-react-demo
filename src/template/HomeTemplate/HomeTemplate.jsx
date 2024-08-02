@@ -8,6 +8,9 @@ import {
 import { NavLink, Outlet } from "react-router-dom"
 import { path } from "../../common/path"
 import { useSelector } from "react-redux"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBlog } from "@fortawesome/free-solid-svg-icons"
+
 const { Header, Content, Footer } = Layout
 
 const HomeTemplate = () => {
@@ -94,7 +97,7 @@ const HomeTemplate = () => {
           textAlign: "center",
         }}
       >
-        Repo của Mei
+        <FontAwesomeIcon icon={faBlog} /> Repo của Mei
       </Footer>
     </Layout>
   )
